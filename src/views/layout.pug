@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/public/css/app.css")
+    link(rel="stylesheet", href="/public/css/normalize.css")
+    link(rel="stylesheet", href="/public/css/style.css")
+    title= titlePage
+  body
+    header.barra
+      h2 Uptask - Projects management
+      a(href="#") Exit
+    main.contenedor
+      aside.contenedor-proyectos
+        .panel.crear-proyecto
+          a(href="/projects" class="boton") New Project
+            span +
+        .panel.lista-proyectos
+          h2 Projects
+          ul#proyectos.proyectos
+            li
+              a(href="#") Online store Design
+            li
+              a(href="#") New Blog Design
+            li
+              a(href="#") New Logo Design
+      block content
