@@ -22,6 +22,8 @@ const postNewProject = (req, res) =>{
     }
     console.log(errors)
     res.render('newproject', data)
+  } else {
+    // Insert DB
   }
 }
 
