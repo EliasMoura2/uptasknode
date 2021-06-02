@@ -1,12 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 
-router.get('/', (req, res, next )=> {
-  res.send('Hello world!');
-});
+const homeRoutes = require('./homePage');
 
-router.get('/about', (req, res) => {
-  res.send('About me');
-});
+router.get('/', homeRoutes);
 
 module.exports = router;
