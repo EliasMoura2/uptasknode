@@ -1,3 +1,4 @@
+const repository = require('./../repositories/projects');
 
 const getNewProject = (req, res) => {
   let data = {
@@ -6,24 +7,27 @@ const getNewProject = (req, res) => {
   res.render('newproject', data)
 };
 
-const postNewProject = (req, res) =>{
+const postNewProject = async (req, res) =>{
   // validar que tengamos algo en el input
-  const { name } = req.body;
+  const { name, url } = req.body;
   let errors = [];
+  console.log(name)
 
   if(!name){
     errors.push({"msg": "name can't be empty"});
   }
 
+  let data = {
+    titlePage: 'New Project',    
+  }
   if(errors.length > 0){
-    let data = {
-      titlePage: 'New Project2',
-      errors      
-    }
-    console.log(errors)
+    data.errors = errors;
     res.render('newproject', data)
   } else {
     // Insert DB
+    const res = await repository.addProject(name);
+    data.project = res.dataValues;
+    res.render('newproject', data);
   }
 }
 
