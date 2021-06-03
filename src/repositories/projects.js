@@ -1,6 +1,6 @@
 const { Projects } = require('./../models');
 
-const addProject = async (name) => await Projects.create({name} )
+const addProject = async (project) => await Projects.create(project)
 
 module.exports = {
   addProject

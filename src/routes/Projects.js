@@ -1,7 +1,15 @@
 const router = require('express').Router();
 const projectsCtrl = require('./../controllers/projects');
-const {postValidationRules, validate} = require('./../middlewares/projectValidation');
+const { body } = require('express-validator');
+
 router.get('/', projectsCtrl.getNewProject);
-router.post('/', projectsCtrl.postNewProject);
+
+router.post('/', 
+  body('name')
+    .notEmpty().withMessage("name can't be empty")
+    .trim()
+    .escape(),
+  projectsCtrl.postNewProject
+);
 
 module.exports = router;

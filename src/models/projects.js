@@ -1,5 +1,8 @@
 'use strict';
 const { Model } = require('sequelize');
+const slug = require('slug');
+const shortId = require('shortid');
+
 module.exports = (sequelize, DataTypes) => {
   class Projects extends Model {
     static associate(models) {
@@ -25,6 +28,12 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: true,
     deletedAt: true,
     modelName: 'Projects',
+    hooks:{
+      beforeCreate(project){
+        const url = slug(project.name).toLowerCase();
+        project.url = `${url}-${shortId.generate()}`;
+      }
+    }
   });
   return Projects;
 };

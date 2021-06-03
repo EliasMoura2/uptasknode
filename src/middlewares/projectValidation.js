@@ -1,12 +1,11 @@
-const {check, validationResult} = require('express-validator');
+const {body, validationResult} = require('express-validator');
 
 const postValidationRules = () => {
   return [
-    check('name')
+    body('name')
       .notEmpty().withMessage("name can't be empty")
-      .isLength({
-        max: 4,
-      }).withMessage("The project name cant't have more 20 characters")
+      .trim().withMessage("name can't be blanks")
+      .escape()
   ];
 };
 
