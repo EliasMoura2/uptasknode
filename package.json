@@ -5,9 +5,12 @@
   "author": "Elias Moura",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "start": "concurrently 'npm run dev' 'npm run watch'",
+    "watch": "webpack --watch --mode development"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "concurrently": "^6.2.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -16,7 +19,8 @@
     "mysql2": "^2.2.5",
     "pug": "^3.0.2",
     "sequelize": "^6.6.2",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "sweetalert2": "^11.0.16"
   },
   "devDependencies": {
     "@babel/core": "^7.14.3",
@@ -25,6 +29,7 @@
     "nodemon": "^2.0.7",
     "sequelize-cli": "^6.2.0",
     "slug": "^5.0.1",
-    "webpack": "^5.38.1"
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
   }
 }
