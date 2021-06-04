@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const projectsCtrl = require('./../controllers/projects');
 const { body } = require('express-validator');
+const projectsCtrl = require('./../controllers/projects');
+const taskCtrl = require('./../controllers/tasks');
 
 router.get('/show/:url', projectsCtrl.getProjectUrl);
 
@@ -17,5 +18,7 @@ router.get('/edit/:id', projectsCtrl.getUpdateProject)
 router.post('/edit/:id', projectsCtrl.putUpdateProject);
 
 router.delete('/delete/:url', projectsCtrl.deleteProject);
+
+router.post('/:url', taskCtrl.addTask)
 
 module.exports = router;

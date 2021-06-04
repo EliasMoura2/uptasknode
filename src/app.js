@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 // morgan logger
 app.use(morgan('dev'));
 // habiliar para leer datos de un formulario
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false }));
 // habilitar para leer json 
 app.use(express.json());
 

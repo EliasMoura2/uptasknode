@@ -1,6 +1,5 @@
 const repository = require('./../repositories/projects');
 
-
 const getNewProject = async (req, res) => {
   const projects = await repository.findAllProjects();
   let data = {

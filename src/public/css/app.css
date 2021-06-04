@@ -201,6 +201,7 @@ body.index {
   max-width: 800px;
   width: 90%;
   background-color: #607d8b;
+  border-radius: 10px;
   margin: 0 auto;
   padding: 2rem;
   color: white;
