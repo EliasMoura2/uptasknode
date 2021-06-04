@@ -4,9 +4,9 @@ block content
   .contenido-principal
     h1 #{titlePage}
 
-    form.agregar-proyecto(action="/projects" method="POST")
+    form.agregar-proyecto(action="/projects/new" method="POST")
       .campo 
-        label(for="nombre") Proyect name: 
+        label(for="nombre") Project name: 
         input(type="text" id="nombre" name="name" placeholder="Project name")
       .campo.enviar
         if errors 
