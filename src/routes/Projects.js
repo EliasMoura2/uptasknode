@@ -14,6 +14,6 @@ router.post('/new',
 );
 
 router.get('/edit/:id', projectsCtrl.getUpdateProject)
-router.put('/edit/:id', projectsCtrl.putUpdateProject);
+router.post('/edit/:id', projectsCtrl.putUpdateProject);
 
 module.exports = router;
