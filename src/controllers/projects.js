@@ -1,8 +1,10 @@
 const repository = require('./../repositories/projects');
 
-const getNewProject = (req, res) => {
+const getNewProject = async (req, res) => {
+  const projects = await repository.findAllProjects();
   let data = {
-    titlePage: 'New Project'
+    titlePage: 'New Project',
+    projects
   }
   res.render('newproject', data)
 };
@@ -25,7 +27,7 @@ const postNewProject = async (req, res) =>{
       res.render('newproject', data)
     } else {
       // Insert DB
-      const project = await repository.addProject({ name, url });
+      const project = await repository.addProject({ name });
       res.redirect('/');
     }
   } catch (error) {

@@ -1,9 +1,12 @@
+const repository = require('./../repositories/projects');
 
-const homePage = (req, res, next )=> {
+const homePage = async (req, res, next )=> {
   // res.send('Hello world!');
+  const projects = await repository.findAllProjects();  
   let data = {
     titlePage: 'UpTask',
-    h1Title: 'Projects'
+    h1Title: 'Projects',
+    projects: projects
   }
   res.render('index', data);
 }

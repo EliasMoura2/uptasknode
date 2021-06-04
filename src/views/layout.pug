@@ -20,10 +20,10 @@ html(lang="en")
         .panel.lista-proyectos
           h2 Projects
           ul#proyectos.proyectos
-            li
-              a(href="#") Online store Design
-            li
-              a(href="#") New Blog Design
-            li
-              a(href="#") New Logo Design
+            if(projects.length)
+              each project in projects 
+                li
+                  a(href="#")= project.name
       block content
+
+      pre= vardump(projects)
