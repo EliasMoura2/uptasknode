@@ -11,12 +11,6 @@ const homePage = async (req, res, next )=> {
   res.render('index', data);
 }
 
-const aboutMe = (req, res, next) => {
-  // res.send('About me');
-  res.render('about');
-};
-
 module.exports = {
-  homePage,
-  aboutMe
+  homePage
 }

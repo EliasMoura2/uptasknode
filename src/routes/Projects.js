@@ -3,6 +3,7 @@ const projectsCtrl = require('./../controllers/projects');
 const { body } = require('express-validator');
 
 router.get('/', projectsCtrl.getNewProject);
+router.get('/:url', projectsCtrl.getProjectUrl);
 
 router.post('/', 
   body('name')

@@ -5,7 +5,7 @@ const PORT = process.env.PORT
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-  sequelize.sync({ force: true })
+  sequelize.sync({ force: false })
     .then(() => {
       console.log('Connection has been established successfully.');
     })

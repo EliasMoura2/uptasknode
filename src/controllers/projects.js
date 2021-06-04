@@ -1,17 +1,32 @@
 const repository = require('./../repositories/projects');
 
+const getProjectUrl = async (req, res, next) =>{
+  const { url } = req.params;
+  const projects = await repository.findAllProjects();
+  const project = await repository.findProjectUrl(url);
+  if(!project) return next();
+
+  let data = {
+    titlePage: 'Tasks Project',
+    projects,
+    project
+  }
+  res.render('tasks', data);
+};
+
 const getNewProject = async (req, res) => {
   const projects = await repository.findAllProjects();
   let data = {
     titlePage: 'New Project',
-    projects
-  }
-  res.render('newproject', data)
+      projects
+    }
+  res.render('newproject', data);
 };
 
 const postNewProject = async (req, res) =>{
   try {
     // validar que tengamos algo en el input
+    const projects = await repository.findAllProjects();
     const { name } = req.body;
     let errors = [];
 
@@ -20,7 +35,8 @@ const postNewProject = async (req, res) =>{
     }
 
     let data = {
-      titlePage: 'New Project',    
+      titlePage: 'New Project',
+      projects  
     }
     if(errors.length > 0){
       data.errors = errors;
@@ -37,5 +53,6 @@ const postNewProject = async (req, res) =>{
 
 module.exports = {
   getNewProject,
-  postNewProject
+  getProjectUrl,
+  postNewProject,
 }

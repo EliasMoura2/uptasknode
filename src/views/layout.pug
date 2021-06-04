@@ -23,7 +23,7 @@ html(lang="en")
             if(projects.length)
               each project in projects 
                 li
-                  a(href="#")= project.name
+                  a(href=`/projects/${project.url}`)= project.name
       block content
 
-      pre= vardump(projects)
+      //- pre= vardump(projects)
