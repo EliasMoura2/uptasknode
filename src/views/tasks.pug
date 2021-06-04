@@ -7,8 +7,9 @@ block content
     // TODO - Form
 
     // TODO - pendient list
+    //- pre= vardump(project)
 
     // TODO - Actions
     .contenedor-acciones
       a(href=`/projects/edit/${project.id}` class="boton") Edit
-      button#eliminar-proyecto(type="button" class="boton eliminar") Delete
+      button#eliminar-proyecto(data-project-url=project.url type="button" class="boton eliminar") Delete

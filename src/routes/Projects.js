@@ -16,4 +16,6 @@ router.post('/new',
 router.get('/edit/:id', projectsCtrl.getUpdateProject)
 router.post('/edit/:id', projectsCtrl.putUpdateProject);
 
+router.delete('/delete/:url', projectsCtrl.deleteProject);
+
 module.exports = router;

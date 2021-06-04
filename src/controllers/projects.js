@@ -99,10 +99,21 @@ const putUpdateProject = async (req, res) => {
   }
 }
 
+const deleteProject = async (req, res, next) => {
+    // const { urlProject } = req.query;
+    const { url } = req.params;
+    const result = await repository.deleteProject(url);
+    if(!result){
+      return next();
+    }
+    res.status(200).send('Project deleted successfully');
+}
+
 module.exports = {
   getNewProject,
   getProjectUrl,
   postNewProject,
   getUpdateProject,
-  putUpdateProject
+  putUpdateProject,
+  deleteProject
 }
