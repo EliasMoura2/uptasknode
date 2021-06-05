@@ -1,7 +1,8 @@
-const repository = require('./../repositories/projects');
+const repositoryProject = require('./../repositories/projects');
+const repositoryTask = require('./../repositories/task');
 
 const getNewProject = async (req, res) => {
-  const projects = await repository.findAllProjects();
+  const projects = await repositoryProject.findAllProjects();
   let data = {
     titlePage: 'New Project',
     projects
@@ -12,7 +13,7 @@ const getNewProject = async (req, res) => {
 const postNewProject = async (req, res) =>{
   try {
     // validar que tengamos algo en el input
-    const projects = await repository.findAllProjects();
+    const projects = await repositoryProject.findAllProjects();
     const { name } = req.body;
     let errors = [];
     
@@ -29,7 +30,7 @@ const postNewProject = async (req, res) =>{
       res.render('newproject', data)
     } else {
       // Insert DB
-      const project = await repository.addProject({ name });
+      const project = await repositoryProject.addProject({ name });
       res.redirect('/');
     }
   } catch (error) {
@@ -39,25 +40,28 @@ const postNewProject = async (req, res) =>{
 
 const getProjectUrl = async (req, res, next) =>{
   const { url } = req.params;
-  const projectPromise = repository.findProjectUrl(url);
-  const projectsPromise = repository.findAllProjects();
+  const projectPromise = repositoryProject.findProjectUrl(url);
+  const projectsPromise = repositoryProject.findAllProjects();
 
   const [project, projects] = await Promise.all([projectPromise, projectsPromise]);
+
+  const tasks = await repositoryTask.findAllTasks(project.id);
   
   if(!project) return next();
 
   let data = {
     titlePage: 'Tasks Project',
     projects,
-    project
+    project,
+    tasks
   }
   res.render('tasks', data);
 };
 
 const getUpdateProject = async (req, res) => {
   const { id } = req.params;
-  const projectsPromise = repository.findAllProjects();
-  const projectPromise = repository.findProjectById(id);
+  const projectsPromise = repositoryProject.findAllProjects();
+  const projectPromise = repositoryProject.findProjectById(id);
   const [project, projects] = await Promise.all([projectPromise, projectsPromise]);
   let data = {
     titlePage: 'Edit Project',
@@ -70,7 +74,7 @@ const getUpdateProject = async (req, res) => {
 const putUpdateProject = async (req, res) => {
   try {
     // validar que tengamos algo en el input
-    const projects = await repository.findAllProjects();
+    const projects = await repositoryProject.findAllProjects();
     const { name } = req.body;
     const { id } = req.params;
 
@@ -90,7 +94,7 @@ const putUpdateProject = async (req, res) => {
       res.render('newproject', data)
     } else {
       // Insert DB
-      await repository.updateProject(id, name);
+      await repositoryProject.updateProject(id, name);
       res.redirect('/');
     }
   } catch (error) {
@@ -101,7 +105,7 @@ const putUpdateProject = async (req, res) => {
 const deleteProject = async (req, res, next) => {
     // const { urlProject } = req.query;
     const { url } = req.params;
-    const result = await repository.deleteProject(url);
+    const result = await repositoryProject.deleteProject(url);
     if(!result){
       return next();
     }
