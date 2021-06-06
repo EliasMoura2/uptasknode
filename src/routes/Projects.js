@@ -19,6 +19,8 @@ router.post('/edit/:id', projectsCtrl.putUpdateProject);
 
 router.delete('/delete/:url', projectsCtrl.deleteProject);
 
-router.post('/:url', taskCtrl.addTask)
+router.patch('/:url/tasks/:id', projectsCtrl.updateStateTask);
+
+router.post('/:url', taskCtrl.addTask);
 
 module.exports = router;

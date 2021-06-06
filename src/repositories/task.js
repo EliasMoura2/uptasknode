@@ -14,9 +14,14 @@ const findAllTasks = async (projectId) => {
   return result;
 };
 
+const findTask = async (id) => await Tasks.findOne({where: {id}});
+
 const addTask = async (task) => await Tasks.create(task);
+
+// const updateStateTask = async(id, properties) => await Tasks.update();
 
 module.exports = {
   findAllTasks,
+  findTask,
   addTask
 }
