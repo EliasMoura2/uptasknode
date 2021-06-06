@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { body } = require('express-validator');
 const projectsCtrl = require('./../controllers/projects');
-const taskCtrl = require('./../controllers/tasks');
 
 router.get('/show/:url', projectsCtrl.getProjectUrl);
 
