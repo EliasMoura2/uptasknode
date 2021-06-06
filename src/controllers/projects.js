@@ -18,7 +18,7 @@ const postNewProject = async (req, res) =>{
     let errors = [];
     
     if(!name){
-      errors.push({"msg": "name can't be emptyasda"});
+      errors.push({"msg": "name can't be empty"});
     }
     
     let data = {
@@ -82,12 +82,12 @@ const putUpdateProject = async (req, res) => {
     let errors = [];
     
     if(!name){
-      errors.push({"msg": "name can't be emptyasda"});
+      errors.push({"msg": "name can't be empty"});
     }
     
     let data = {
       titlePage: 'New Project',
-      projects  
+      projects
     }
     if(errors.length > 0){
       data.errors = errors;
@@ -112,26 +112,6 @@ const deleteProject = async (req, res, next) => {
     res.status(200).send('Project deleted successfully');
 }
 
-const updateStateTask = async (req, res, next) => {
-  const { url, id } = req.params;
-  let state = 0;
-
-  const task = await repositoryTask.findTask(id);
-
-  if(task.state === state){
-    state = 1;
-  }
-  
-  task.state = state;
-  
-  const result = await task.save();
-  if(!result){
-    return next();
-  }
-
-  res.status(200).send('Actualizado')
-};
-
 module.exports = {
   getNewProject,
   getProjectUrl,
@@ -139,5 +119,4 @@ module.exports = {
   getUpdateProject,
   putUpdateProject,
   deleteProject,
-  updateStateTask
 }

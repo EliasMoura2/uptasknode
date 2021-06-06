@@ -38,8 +38,7 @@ if(btnDelete){
               text: "couldn't delete project"
             });
           })
-      }
-        
+      } 
     })
   });
 }

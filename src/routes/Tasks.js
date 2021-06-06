@@ -1,6 +1,9 @@
 const router = require('express').Router();
-const projectsCtrl = require('./../controllers/projects');
+const tasksCtrl = require('./../controllers/tasks');
 
-router.get('/show/:url', projectsCtrl.getProjectUrl);
+
+router.post('/new/:url', tasksCtrl.addTask);
+router.patch('/update-state/:id', tasksCtrl.updateStateTask);
+router.delete('/delete/:id', tasksCtrl.deleteTask);
 
 module.exports = router;

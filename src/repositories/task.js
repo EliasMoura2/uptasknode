@@ -20,8 +20,11 @@ const addTask = async (task) => await Tasks.create(task);
 
 // const updateStateTask = async(id, properties) => await Tasks.update();
 
+const deleteTask = async (id) => await Tasks.destroy({where: {id}});
+
 module.exports = {
   findAllTasks,
   findTask,
-  addTask
+  addTask,
+  deleteTask
 }

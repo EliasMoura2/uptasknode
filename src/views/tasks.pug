@@ -3,8 +3,10 @@ extends layout
 block content
   .contenido-principal
     h1 #{titlePage} - #{project.name}
-
-    form.agregar-tarea(action=`/projects/${project.url}` method='POST')
+    if errors 
+      each error in errors 
+        .alerta.error= error.msg
+    form.agregar-tarea(action=`/tasks/new/${project.url}` method='POST')
       .campo
         label(for="task") Task:
         input.nombre-tarea(type="text" name="name" placeholder="Task name")
