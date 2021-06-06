@@ -24,14 +24,11 @@ const addTask = async (req, res, next) => {
     return res.render('tasks', data);
   }
 
-
   const result = await repositoryTask.addTask({ name, state, projectId });
-  console.log(result)
+
   if(!result){
     return next();
   }
-
-  // falta enviar la variable errors
   res.redirect(`/projects/show/${url}`);
 };
 

@@ -29,6 +29,12 @@ block content
           p There aren't tasks in this project
     //- pre= vardump(tasks)
 
+    .avance
+      h2 Project progress
+      #barra-avance.barra-avance
+        #porcentaje.porcentaje
+
+
     .contenedor-acciones
       a(href=`/projects/edit/${project.id}` class="boton") Edit
       button#eliminar-proyecto(data-project-url=project.url type="button" class="boton eliminar") Delete

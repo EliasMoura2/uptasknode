@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import {updateProgress} from './../functions/progress';
 const tasks = document.querySelector('.listado-pendientes');
 
 if(tasks){
@@ -13,6 +14,7 @@ if(tasks){
         .then((res) => {
           if(res.status === 200){
             icon.classList.toggle('completo');
+            updateProgress();
           }
         })
     }
@@ -41,9 +43,10 @@ if(tasks){
                 `${res.data}`,
                 'success'
               );
-            //   setTimeout(() => {
-            //     window.location.href = '/'
-            //   }, 1000);
+              updateProgress();
+              // setTimeout(() => {
+                // window.location.href = `${location.pathname}`
+              // }, 1000);
             })
             .catch(() => {
               Swal.fire({
