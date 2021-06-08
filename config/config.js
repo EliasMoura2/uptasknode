@@ -18,7 +18,6 @@ module.exports = {
       acquire: 30000,
       idle: 10000,
     },
-    logging: false,
     seederStorage: 'sequelize',
     seederStorageTableName: 'seeds',
     migrationStorage: 'sequelize',
