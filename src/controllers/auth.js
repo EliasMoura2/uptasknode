@@ -16,7 +16,12 @@ const postRegister = async (req, res, next) => {
   res.redirect('/auth/login');
 };
 
+const getLogin = async (req, res) => {
+
+};
+
 module.exports = {
   getRegister,
-  postRegister
+  postRegister,
+  getLogin
 }
