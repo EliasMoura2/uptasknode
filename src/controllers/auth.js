@@ -9,15 +9,23 @@ const getRegister = async (req, res, next )=> {
 
 const postRegister = async (req, res, next) => {
   const { email, password } = req. body;
-  const user = await userRepository.addUser({email, password});
-  if(!user){
-    return next();
+  try {
+    const user = await userRepository.addUser({email, password});
+    // if(!user){
+    //   return next();
+    // }
+    res.redirect('/auth/login');
+  } catch (error) {
+    console.log(error)
+    let data = {
+      titlePage: 'Register',
+      errors: error.errors
+    }
+    res.render('createAccount', data);
   }
-  res.redirect('/auth/login');
 };
 
 const getLogin = async (req, res) => {
-
 };
 
 module.exports = {

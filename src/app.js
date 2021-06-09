@@ -9,23 +9,25 @@ const routes = require('./routes');
 const helpers = require('./utils/helpers');
 // crear una app de express
 const app = express();
-// Habilitar pug como view engine
-app.set('view engine', 'pug');
-// añadir la carpeta de vistas
-app.set('views', path.join(__dirname, '/views'));
-// archivos estaticos
-app.use('/public', express.static(path.join(__dirname, 'public')))
-// pasar vardum a la aplicaicon
-app.use((req, res, next) => {
-  res.locals.vardump = helpers.vardump;
-  next();
-});
 // morgan logger
 app.use(morgan('dev'));
 // habiliar para leer datos de un formulario
 app.use(express.urlencoded({extended: false }));
 // habilitar para leer json 
 app.use(express.json());
+// Habilitar pug como view engine
+app.set('view engine', 'pug');
+// añadir la carpeta de vistas
+app.set('views', path.join(__dirname, '/views'));
+// archivos estaticos
+app.use('/public', express.static(path.join(__dirname, 'public')));
+// agregar flash messages
+app.use(flash());
+// pasar vardum a la aplicaicon
+app.use((req, res, next) => {
+  res.locals.vardump = helpers.vardump;
+  next();
+});
 
 // definir las rutas
 app.use('/', routes);
