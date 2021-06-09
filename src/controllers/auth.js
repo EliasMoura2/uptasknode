@@ -41,9 +41,19 @@ const authenticateUser = passport.authenticate('local', {
   badRequestMessage: 'Both fields are required'
 });
 
+const isUserAuthenticated = (req, res, next) => {
+  // si esta autenticado pasa
+  if(req.isAuthenticated()){
+    return next();
+  }
+  // si no esta autenticado redirige al formualio de login
+  return res.redirect('/auth/login');
+};
+
 module.exports = {
   getFormRegister,
   postFormRegister,
   getFormLogin,
   authenticateUser,
+  isUserAuthenticated
 }
