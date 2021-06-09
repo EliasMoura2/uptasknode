@@ -4,12 +4,12 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
-
     static associate(models) {
       // define association here
-      Users.hasMany(models.Projects);
+      // Users.hasMany(models.Projects);
     }
   };
+
   Users.init({
     email: {
       type: DataTypes.STRING(60),
@@ -42,5 +42,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   });
+
+  Users.prototype.verifyPassword = function (password){
+    return bcrypt.compareSync(password, this.password)
+  };
   return Users;
 };

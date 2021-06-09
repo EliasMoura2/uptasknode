@@ -4,15 +4,11 @@ html(lang="en")
     include partials/head
   body.login
     .contenedor-formulario
-      h1 Register
+      h1 Login
 
-      if locals.messages
-        .alertas
-          each category in Object.keys(locals.messages)
-            each error in messages[category]
-              .alerta(class=`${category}`)
-                p= error
-      form#formulario.caja.caja-login(action="/auth/register" method="POST")
+      if error
+        p.alerta.error= error
+      form#formulario.caja.caja-login(action="/auth/login" method="POST")
         .campo
           label(for="email") E-mail:
           input(type="email" name="email" placeholder="Email" value= email)
@@ -20,8 +16,8 @@ html(lang="en")
           label(for="password") Password:
           input(type="password" name="password" placeholder="Password")
         .campo.enviar
-          input.boton(type="submit" value="Create")
+          input.boton(type="submit" value="Log in")
         .campo
-          a(href='/auth/login') Login
+          a(href='/auth/register') Don't have an account? Sign Up
     script(src="./../public/dist/bundle.js")  
                     

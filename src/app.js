@@ -4,6 +4,7 @@ const path = require('path');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const passport = require('./../src/middlewares/passport');
 
 // import routes appdefinir
 const routes = require('./routes');
@@ -34,6 +35,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 // pasar vardum a la aplicaicon
 app.use((req, res, next) => {
   res.locals.vardump = helpers.vardump;
