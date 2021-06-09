@@ -10,16 +10,13 @@ const getRegister = async (req, res, next )=> {
 const postRegister = async (req, res, next) => {
   const { email, password } = req. body;
   try {
-    const user = await userRepository.addUser({email, password});
-    // if(!user){
-    //   return next();
-    // }
+    await userRepository.addUser({email, password});
     res.redirect('/auth/login');
   } catch (error) {
-    console.log(error)
+    req.flash('error', error.errors.map(error => error.message));
     let data = {
       titlePage: 'Register',
-      errors: error.errors
+      messages: req.flash()
     }
     res.render('createAccount', data);
   }

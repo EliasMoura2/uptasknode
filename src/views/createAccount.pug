@@ -5,16 +5,20 @@ html(lang="en")
   body.login
     .contenedor-formulario
       h1 Register
-      if(errors)
-        each error in errors
-          p.error.alerta= error.message
+
+      if locals.messages
+        .alertas
+          each category in Object.keys(locals.messages)
+            each error in messages[category]
+              .alerta(class=`${category}`)
+                p= error
       form#formulario.caja.caja-login(action="/auth/register" method="POST")
         .campo
           label(for="email") E-mail:
-          input(type="email" name="email" placeholder="Email" required)
+          input(type="email" name="email" placeholder="Email")
         .campo
           label(for="password") Password:
-          input(type="password" name="password" placeholder="Password" required)
+          input(type="password" name="password" placeholder="Password")
         .campo.enviar
           input.boton(type="submit" value="Create")
         .campo
