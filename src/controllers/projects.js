@@ -30,7 +30,8 @@ const postNewProject = async (req, res) =>{
       res.render('newproject', data)
     } else {
       // Insert DB
-      const project = await repositoryProject.addProject({ name });
+      const userId = res.locals.user.id;
+      await repositoryProject.addProject({ name,userId });
       res.redirect('/');
     }
   } catch (error) {

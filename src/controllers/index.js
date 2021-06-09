@@ -1,7 +1,7 @@
 const repository = require('./../repositories/projects');
 
 const homePage = async (req, res, next )=> {
-  // res.send('Hello world!');
+  console.log(res.locals.user)
   const projects = await repository.findAllProjects();  
   let data = {
     titlePage: 'UpTask',

@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     static associate(models) {
       // define association here
-      // Users.hasMany(models.Projects);
+      Users.hasMany(models.Projects,{
+        as: 'user',
+        foreignKey: 'userId',
+      });
     }
   };
 
