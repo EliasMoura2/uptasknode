@@ -50,10 +50,17 @@ const isUserAuthenticated = (req, res, next) => {
   return res.redirect('/auth/login');
 };
 
+const closeSession = (req, res, next) => {
+  req.session.destroy(() => {
+    res.redirect('/auth/login');
+  });
+};
+
 module.exports = {
   getFormRegister,
   postFormRegister,
   getFormLogin,
   authenticateUser,
-  isUserAuthenticated
+  isUserAuthenticated,
+  closeSession
 }
