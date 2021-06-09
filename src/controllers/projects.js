@@ -2,7 +2,8 @@ const repositoryProject = require('./../repositories/projects');
 const repositoryTask = require('./../repositories/task');
 
 const getNewProject = async (req, res) => {
-  const projects = await repositoryProject.findAllProjects();
+  const userId = res.locals.user;
+  const projects = await repositoryProject.findAllProjects({userId});
   let data = {
     titlePage: 'New Project',
     projects
@@ -41,8 +42,9 @@ const postNewProject = async (req, res) =>{
 
 const getProjectUrl = async (req, res, next) =>{
   const { url } = req.params;
-  const projectPromise = repositoryProject.findProjectUrl(url);
-  const projectsPromise = repositoryProject.findAllProjects();
+  const userId = res.locals.user.id;
+  const projectPromise = repositoryProject.findProjectUrl(url, userId);
+  const projectsPromise = repositoryProject.findAllProjects(userId);
 
   const [project, projects] = await Promise.all([projectPromise, projectsPromise]);
 
@@ -61,8 +63,9 @@ const getProjectUrl = async (req, res, next) =>{
 
 const getUpdateProject = async (req, res) => {
   const { id } = req.params;
-  const projectsPromise = repositoryProject.findAllProjects();
-  const projectPromise = repositoryProject.findProjectById(id);
+  const userId = res.locals.user.id;
+  const projectsPromise = repositoryProject.findAllProjects(userId);
+  const projectPromise = repositoryProject.findProjectById(id, userId);
   const [project, projects] = await Promise.all([projectPromise, projectsPromise]);
   let data = {
     titlePage: 'Edit Project',
@@ -75,7 +78,8 @@ const getUpdateProject = async (req, res) => {
 const putUpdateProject = async (req, res) => {
   try {
     // validar que tengamos algo en el input
-    const projects = await repositoryProject.findAllProjects();
+    const userId = res.locals.user.id;
+    const projects = await repositoryProject.findAllProjects(userId);
     const { name } = req.body;
     const { id } = req.params;
 

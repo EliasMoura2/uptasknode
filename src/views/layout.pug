@@ -14,7 +14,7 @@ html(lang="en")
         .panel.lista-proyectos
           h2 Projects
           ul#proyectos.proyectos
-            if(projects.length)
+            if projects
               each project in projects 
                 li
                   a(href=`/projects/show/${project.url}`)= project.name

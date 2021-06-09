@@ -1,9 +1,9 @@
 const { Projects } = require('./../models');
 
-const findAllProjects = async () => await Projects.findAll({});
+const findAllProjects = async (userId) => await Projects.findAll({where:{userId}});
 const addProject = async (project) => await Projects.create(project);
-const findProjectUrl = async (url) => await Projects.findOne({where:{url}});
-const findProjectById = async (id) => await Projects.findOne({where: {id}});
+const findProjectUrl = async (url, userId) => await Projects.findOne({where:{url, userId}});
+const findProjectById = async (id) => await Projects.findOne({where: {id, userId}});
 const updateProject = async (id, name) => await Projects.update({name}, {where: {id}});
 const deleteProject = async (url) => await Projects.destroy({where: {url}});
 
