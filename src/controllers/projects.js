@@ -2,19 +2,23 @@ const repositoryProject = require('./../repositories/projects');
 const repositoryTask = require('./../repositories/task');
 
 const getNewProject = async (req, res) => {
-  const userId = res.locals.user;
-  const projects = await repositoryProject.findAllProjects({userId});
+  const userId = res.locals.user.id;
+  const projects = await repositoryProject.findAllProjects(userId);
   let data = {
     titlePage: 'New Project',
     projects
   }
+  console.log(projects)
   res.render('newproject', data);
 };
 
 const postNewProject = async (req, res) =>{
   try {
     // validar que tengamos algo en el input
-    const projects = await repositoryProject.findAllProjects();
+    const userId = res.locals.user.id;
+    console.log(userId)
+    const projects = await repositoryProject.findAllProjects(userId);
+    console.log(projects)
     const { name } = req.body;
     let errors = [];
     
@@ -32,7 +36,7 @@ const postNewProject = async (req, res) =>{
     } else {
       // Insert DB
       const userId = res.locals.user.id;
-      await repositoryProject.addProject({ name,userId });
+      await repositoryProject.addProject({ name, userId });
       res.redirect('/');
     }
   } catch (error) {

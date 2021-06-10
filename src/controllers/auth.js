@@ -1,5 +1,6 @@
 const userRepository = require('./../repositories/users');
 const passport = require('passport');
+const crypto = require('crypto');
 
 const getFormRegister = async (req, res, next )=> {
   let data = {
@@ -56,11 +57,58 @@ const closeSession = (req, res, next) => {
   });
 };
 
+// genera un token si el usuario es valido
+const sendToken = async (req, res) => {
+  // verificar que un usuario exista
+  const { email } = req.body;
+  const user = await userRepository.findUserByEmail(email)
+  // si no existe el usuario
+  if(!user){
+    req.flash('error', 'invalid Email');
+    res.render('/auth/reset');
+  }
+
+  user.token = crypto.randomBytes(20).toString('hex');
+  user.expiration = Date.now() + 3600000;
+  
+  await user.save();
+  // reset url
+  const resetUrl = `http://${req.headers.host}/auth/reset/${user.token}`;
+  res.send(resetUrl);
+};
+
+const validTokenPassword = async (req, res) => {
+  const user = await userRepository.findByToken(req.params.token);
+
+  if(!user){
+    req.flash('error', 'invalid token');
+    res.redirect('/users/reset')
+  }
+
+  let data = {
+    titlePage: 'Reset Password',
+  }
+
+  res.render('resetPassword', data)
+}
+
+const updatePassword = async (req, res) => {
+  const { token } = req.params;
+  const user = await userRepository.findUserValidToken(token);
+  if(!user){
+    req.flash('error', 'Invalid user');
+    res.redirect('/reset')
+  }
+};
+
 module.exports = {
   getFormRegister,
   postFormRegister,
   getFormLogin,
   authenticateUser,
   isUserAuthenticated,
-  closeSession
+  closeSession,
+  sendToken,
+  validTokenPassword,
+  updatePassword
 }

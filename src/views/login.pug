@@ -17,7 +17,9 @@ html(lang="en")
           input(type="password" name="password" placeholder="Password")
         .campo.enviar
           input.boton(type="submit" value="Log in")
-        .campo
+        .campo.acciones
           a(href='/auth/register') Don't have an account? Sign Up
+
+          a(href='/users/reset-password') Forgot password?
     script(src="./../public/dist/bundle.js")  
                     

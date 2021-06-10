@@ -35,6 +35,12 @@ module.exports = (sequelize, DataTypes) => {
           msg: "password can't be empty"
         }
       }
+    },
+    token: {
+      type: DataTypes.STRING
+    },
+    expiration: {
+      type: DataTypes.DATE,
     }
   }, {
     sequelize,

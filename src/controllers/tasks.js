@@ -5,13 +5,14 @@ const addTask = async (req, res, next) => {
   const { url } = req.params;
   const { name } = req.body;
   let state = 0;
-
-  const project = await repositoryProject.findProjectUrl(url);
+  const userId = res.locals.user.id;
+  const project = await repositoryProject.findProjectUrl(url, userId);
   const projectId = project.id;
 
   if(!name){
     let errors = [];
-    const projects = await repositoryProject.findAllProjects();
+    const userId = req.locals.user.id;
+    const projects = await repositoryProject.findAllProjects(userId);
     const tasks = await repositoryTask.findAllTasks(projectId)
     let data = {
       titlePage: 'Tasks Project',
