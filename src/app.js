@@ -53,4 +53,6 @@ app.use('*', (req, res, next) => {
   res.status(404).json({msg: 'Page not found'});
 });
 
+require('./handlers/email');
+
 module.exports = app;
