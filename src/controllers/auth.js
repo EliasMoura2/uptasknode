@@ -1,6 +1,7 @@
 const userRepository = require('./../repositories/users');
 const passport = require('passport');
 const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 const getFormRegister = async (req, res, next )=> {
   let data = {
@@ -99,6 +100,15 @@ const updatePassword = async (req, res) => {
     req.flash('error', 'Invalid user');
     res.redirect('/reset')
   }
+
+
+  //hashear el password
+  user.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+  user.token = null;
+  user.expiration = null;
+  await user.save();
+  req.flash('correcto', 'password changed successfully')
+  res.redirect('/auth/login');
 };
 
 module.exports = {
