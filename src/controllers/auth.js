@@ -2,6 +2,7 @@ const userRepository = require('./../repositories/users');
 const passport = require('passport');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
+const sendEmail = require('./../handlers/email');
 
 const getFormRegister = async (req, res, next )=> {
   let data = {
@@ -75,7 +76,16 @@ const sendToken = async (req, res) => {
   await user.save();
   // reset url
   const resetUrl = `http://${req.headers.host}/auth/reset/${user.token}`;
-  res.send(resetUrl);
+  // envia un correo con el token
+  await sendEmail.enviar({
+    user,
+    subject: 'Password reset',
+    resetUrl,
+    file: 'resetPassword' // view name
+  })
+
+  req.flash('correcto', 'A message was sent to your email');
+  res.redirect('/auth/login');
 };
 
 const validTokenPassword = async (req, res) => {

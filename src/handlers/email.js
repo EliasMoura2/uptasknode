@@ -14,12 +14,24 @@ let transport = nodemailer.createTransport({
   }
 });
 
-let mailOptions = {
-  from: 'Uptask <no-reply@uptask.com>',
-  to: 'correo@corre.com',
-  subject: "Password reset",
-  text: "Hello world?",
-  html: "<b>Hello world?</b>",
+// generar HTML
+const generateHTML = (file, options = {}) => {
+  const html = pug.renderFile(`${__dirname}/../views/emails/${file}.pug`, options);
+  return juice(html)
 };
 
-transport.sendMail(mailOptions);
+exports.enviar = async (options) => {
+  const html = generateHTML(options.file, options);
+  const text = htmlToText.fromString(html); 
+  let mailOptions = {
+    from: 'Uptask <no-reply@uptask.com>',
+    to: options.user.email,
+    subject: options.subject,
+    text,
+    html,
+  };
+  
+  // util.promisify hace que algo sea convierta en promesa
+  const enviarEmail = util.promisify(transport.sendMail, transport)
+  return enviarEmail.call(transport, mailOptions);
+};
