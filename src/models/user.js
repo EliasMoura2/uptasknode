@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    isActive: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0 
+    },
     token: {
       type: DataTypes.STRING
     },

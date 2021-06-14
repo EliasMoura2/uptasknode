@@ -5,8 +5,9 @@
   "author": "Elias Moura",
   "license": "MIT",
   "scripts": {
+    "desarrollo": "concurrently 'npm run dev' 'npm run watch'",
     "dev": "nodemon src/server.js",
-    "start": "concurrently 'npm run dev' 'npm run watch'",
+    "start": "node src/server.js",
     "watch": "webpack --watch --mode development"
   },
   "dependencies": {

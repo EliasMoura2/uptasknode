@@ -15,6 +15,22 @@ const postFormRegister = async (req, res, next) => {
   const { email, password } = req. body;
   try {
     await userRepository.addUser({email, password});
+
+    // crear una url apra confirmar
+      const confirmUrl = `http://${req.headers.host}/auth/confirm/${email}`;
+    // crear el objeto de user
+    const user = {
+      email
+    }
+    // enviar email
+    await sendEmail.enviar({
+      user,
+      subject: 'Confirm account',
+      confirmUrl,
+      file: 'confirmAccount' // view name
+    })
+    // redirigir
+    req.flash('correcto', 'email sent to your email, confirm account')
     res.redirect('/auth/login');
   } catch (error) {
     req.flash('error', error.errors.map(error => error.message));
@@ -25,6 +41,21 @@ const postFormRegister = async (req, res, next) => {
     }
     res.render('createAccount', data);
   }
+};
+
+const confirmAccount = async (req, res, next) => {
+  const { email } = req.params;
+  const user = await userRepository.findUserByEmail(email);
+  if(!user){
+    req.flash('error', 'Invalid email');
+    res.redirect('/auth/register');
+  }
+
+  user.isActive = 1;
+  await user.save();
+
+  req.flash('correcto', 'Account activated successfully');
+  res.redirect('/auth/login');
 };
 
 const getFormLogin = async (req, res, next )=> {
@@ -124,6 +155,7 @@ const updatePassword = async (req, res) => {
 module.exports = {
   getFormRegister,
   postFormRegister,
+  confirmAccount,
   getFormLogin,
   authenticateUser,
   isUserAuthenticated,
