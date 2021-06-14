@@ -3860,7 +3860,7 @@ slick@^1.12.2:
 
 slug@^5.0.1:
   version "5.0.1"
-  resolved "https://registry.npmjs.org/slug/-/slug-5.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/slug/-/slug-5.0.1.tgz#de3bb7356b7aac39962be8453d32a0ecb49f65a1"
   integrity sha512-2Jf7lg8IwV4yC93hdd009WJKrZHLB0lpNVHzGdlpgDgJixJuOlUHG/MaD446lQG2yjh7fQFrJeNW5agWvxMHCg==
 
 source-list-map@^2.0.1:
