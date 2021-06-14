@@ -6,7 +6,7 @@ const HOST = process.env.HOST || '0.0.0.0'
 
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-  sequelize.sync({ force: false })
+  sequelize.sync({ force: true })
     .then(() => {
       console.log('Connection has been established successfully.');
     })
