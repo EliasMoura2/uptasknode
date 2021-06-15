@@ -16,20 +16,16 @@ const postFormRegister = async (req, res, next) => {
   try {
     await userRepository.addUser({email, password});
 
-    // crear una url apra confirmar
-      const confirmUrl = `http://${req.headers.host}/auth/confirm/${email}`;
-    // crear el objeto de user
+    const confirmUrl = `http://${req.headers.host}/auth/confirm/${email}`;
     const user = {
       email
     }
-    // enviar email
     await sendEmail.enviar({
       user,
       subject: 'Confirm account',
       confirmUrl,
       file: 'confirmAccount' // view name
     })
-    // redirigir
     req.flash('correcto', 'email sent to your email, confirm account')
     res.redirect('/auth/login');
   } catch (error) {
@@ -76,11 +72,9 @@ const authenticateUser = passport.authenticate('local', {
 });
 
 const isUserAuthenticated = (req, res, next) => {
-  // si esta autenticado pasa
   if(req.isAuthenticated()){
     return next();
   }
-  // si no esta autenticado redirige al formualio de login
   return res.redirect('/auth/login');
 };
 
@@ -90,12 +84,9 @@ const closeSession = (req, res, next) => {
   });
 };
 
-// genera un token si el usuario es valido
 const sendToken = async (req, res) => {
-  // verificar que un usuario exista
   const { email } = req.body;
-  const user = await userRepository.findUserByEmail(email)
-  // si no existe el usuario
+  const user = await userRepository.findUserByEmail(email);
   if(!user){
     req.flash('error', 'invalid Email');
     res.render('/auth/reset');
@@ -105,16 +96,13 @@ const sendToken = async (req, res) => {
   user.expiration = Date.now() + 3600000;
   
   await user.save();
-  // reset url
   const resetUrl = `http://${req.headers.host}/auth/reset/${user.token}`;
-  // envia un correo con el token
   await sendEmail.enviar({
     user,
     subject: 'Password reset',
     resetUrl,
     file: 'resetPassword' // view name
-  })
-
+  });
   req.flash('correcto', 'A message was sent to your email');
   res.redirect('/auth/login');
 };
@@ -142,8 +130,6 @@ const updatePassword = async (req, res) => {
     res.redirect('/reset')
   }
 
-
-  //hashear el password
   user.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
   user.token = null;
   user.expiration = null;

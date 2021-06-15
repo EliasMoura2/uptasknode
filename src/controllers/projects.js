@@ -14,7 +14,6 @@ const getNewProject = async (req, res) => {
 
 const postNewProject = async (req, res) =>{
   try {
-    // validar que tengamos algo en el input
     const userId = res.locals.user.id;
     console.log(userId)
     const projects = await repositoryProject.findAllProjects(userId);
@@ -34,7 +33,7 @@ const postNewProject = async (req, res) =>{
       data.errors = errors;
       res.render('newproject', data)
     } else {
-      // Insert DB
+
       const userId = res.locals.user.id;
       await repositoryProject.addProject({ name, userId });
       res.redirect('/');
@@ -81,7 +80,6 @@ const getUpdateProject = async (req, res) => {
 
 const putUpdateProject = async (req, res) => {
   try {
-    // validar que tengamos algo en el input
     const userId = res.locals.user.id;
     const projects = await repositoryProject.findAllProjects(userId);
     const { name } = req.body;
@@ -102,7 +100,7 @@ const putUpdateProject = async (req, res) => {
       data.errors = errors;
       res.render('newproject', data)
     } else {
-      // Insert DB
+
       await repositoryProject.updateProject(id, name);
       res.redirect('/');
     }
@@ -112,7 +110,6 @@ const putUpdateProject = async (req, res) => {
 }
 
 const deleteProject = async (req, res, next) => {
-    // const { urlProject } = req.query;
     const { url } = req.params;
     const result = await repositoryProject.deleteProject(url);
     if(!result){

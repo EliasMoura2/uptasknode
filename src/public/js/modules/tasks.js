@@ -31,7 +31,6 @@ if(tasks){
         confirmButtonText: 'Yes, delete it!'
       }).then((result) => {
         if (result.value) {
-          // enviar peticion a axios
           const url = `${location.origin}/tasks/delete/${taskId}`;
           axios.delete(url, { params: {taskId}})
             .then((res) => {

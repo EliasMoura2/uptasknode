@@ -14,7 +14,6 @@ let transport = nodemailer.createTransport({
   }
 });
 
-// generar HTML
 const generateHTML = (file, options = {}) => {
   const html = pug.renderFile(`${__dirname}/../views/emails/${file}.pug`, options);
   return juice(html)
@@ -31,7 +30,6 @@ exports.enviar = async (options) => {
     html,
   };
   
-  // util.promisify hace que algo sea convierta en promesa
   const enviarEmail = util.promisify(transport.sendMail, transport)
   return enviarEmail.call(transport, mailOptions);
 };

@@ -33,10 +33,6 @@ module.exports = (sequelize, DataTypes) => {
         const url = slug(project.name).toLowerCase();
         project.url = `${url}-${shortId.generate()}`;
       },
-      // beforeUpdate(project){
-      //   const url = slug(project.name).toLowerCase();
-      //   project.url = `${url}-${shortId.generate()}`;
-      // }
     }
   });
   return Projects;
